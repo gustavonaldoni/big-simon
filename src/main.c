@@ -1,14 +1,26 @@
+#include <stdlib.h>
+#include <time.h>
+
 #include "raylib.h"
+#include "utils.h"
+
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 800
 
 int main(void)
 {
-    InitWindow(800, 450, "raylib [core] example - basic window");
+
+    srand(time(NULL));
+
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Big Simon");
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
-            ClearBackground(RAYWHITE);
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+        ClearBackground(RAYWHITE);
+
+        DrawCenteredText("Big Simon", GetScreenHeight() / 13, 60.0f, DARKGRAY);
+
         EndDrawing();
     }
 
