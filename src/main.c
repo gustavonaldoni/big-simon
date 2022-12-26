@@ -3,12 +3,19 @@
 
 #include "raylib.h"
 #include "utils.h"
+#include "board.h"
+#include "piece.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 800
 
+Board board = {0};
+Piece *piecesArray = NULL;
+
 int main(void)
 {
+    CreateBoard(&board, 3, 500);
+    CreatePiecesArray(piecesArray, board);
 
     srand(time(NULL));
 
@@ -23,6 +30,9 @@ int main(void)
 
         EndDrawing();
     }
+
+    DestroyBoard(&board);
+    DestroyPiecesArray(piecesArray);
 
     CloseWindow();
 
