@@ -13,7 +13,7 @@
 Board board = {0};
 Piece *piecesArray = NULL;
 
-int i, j;
+int iClicked = 0, jClicked = 0;
 
 int main(void)
 {
@@ -22,12 +22,17 @@ int main(void)
 
     CreateBoard(&board, 3, 500);
     piecesArray = CreatePiecesArray(board);
-    printf("%p ===== ", piecesArray);
-
-    PrintIntegerMatrix(&board.matrix);
 
     while (!WindowShouldClose())
     {
+        if (UserClickedInsideBoard(&board))
+        {
+            iClicked = (GetMouseY() - board.y) / (board.size / board.matrixOrder);
+            jClicked = (GetMouseX() - board.x) / (board.size / board.matrixOrder);
+
+            SetValueOnIntegerMatrix(&(board.matrix), jClicked, iClicked, !(*GetValueFromIntegerMatrix(&(board.matrix), jClicked, iClicked)));
+        }
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
