@@ -11,5 +11,6 @@ void CalculatePieceSize(Piece *, Board);
 void CreatePiece(Piece *, int, int, Color, Color, Board);
 void UpdatePieceHitbox(Piece *);
 void DrawPiece(Piece, int);
-void CreatePiecesArray(Piece *, Board);
+Piece *CreatePiecesArray(Board);
 void DestroyPiecesArray(Piece *);
+void DrawBoard(Board *, Piece *);

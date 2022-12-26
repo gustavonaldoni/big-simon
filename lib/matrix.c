@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "matrix.h"
 
 void CreateIntegerMatrix(IntegerMatrix *matrix, int lines, int columns)
@@ -172,4 +173,19 @@ int MultiplyMatrixByConstant(IntegerMatrix *matrix, IntegerMatrix *result, int c
 int MultiplyIntegerMatrices(IntegerMatrix *matrix1, IntegerMatrix *matrix2, IntegerMatrix *result)
 {
     return 1;
+}
+
+void PrintIntegerMatrix(IntegerMatrix *matrix)
+{
+    int i, j;
+
+    for (i = 0; i < matrix->lines; i++)
+    {
+        for (j = 0; j < matrix->columns; j++)
+        {
+            printf("%d ", *GetValueFromIntegerMatrix(matrix, i, j));
+        }
+
+        printf("\n");
+    }
 }

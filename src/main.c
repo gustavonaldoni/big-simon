@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -12,14 +13,18 @@
 Board board = {0};
 Piece *piecesArray = NULL;
 
+int i, j;
+
 int main(void)
 {
-    CreateBoard(&board, 3, 500);
-    CreatePiecesArray(piecesArray, board);
-
     srand(time(NULL));
-
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Big Simon");
+
+    CreateBoard(&board, 3, 500);
+    piecesArray = CreatePiecesArray(board);
+    printf("%p ===== ", piecesArray);
+
+    PrintIntegerMatrix(&board.matrix);
 
     while (!WindowShouldClose())
     {
@@ -27,6 +32,8 @@ int main(void)
         ClearBackground(RAYWHITE);
 
         DrawCenteredText("Big Simon", GetScreenHeight() / 13, 60.0f, DARKGRAY);
+
+        DrawBoard(&board, piecesArray);
 
         EndDrawing();
     }

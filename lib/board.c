@@ -5,9 +5,9 @@ void CreateBoard(Board *board, int matrixOrder, int size)
 {
     IntegerMatrix boardMatrix = {0};
 
-    board->x = (GetScreenWidth() - size) / 2;
-    board->y = (GetScreenHeight() - size) / 2;
     board->size = size;
+    board->x = (GetScreenWidth() - board->size) / 2;
+    board->y = (GetScreenHeight() - board->size) / 2;
     board->matrixOrder = matrixOrder;
 
     CreateIntegerMatrix(&boardMatrix, board->matrixOrder, board->matrixOrder);

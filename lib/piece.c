@@ -18,7 +18,7 @@ void CreatePiece(Piece *piece, int i, int j, Color baseColor, Color clickedColor
 
     CalculatePieceSize(piece, board);
     piece->x = board.x + i * piece->size;
-    piece->y = board.y + i * piece->size;
+    piece->y = board.y + j * piece->size;
 
     piece->hitbox = (Rectangle){piece->x, piece->y, piece->size, piece->size};
 }
@@ -37,18 +37,19 @@ void DrawPiece(Piece piece, int isClicked)
         DrawRectangle(piece.x, piece.y, piece.size, piece.size, piece.baseColor);
 }
 
-void CreatePiecesArray(Piece *piecesArray, Board board)
+Piece *CreatePiecesArray(Board board)
 {
+    Piece *piecesArray = NULL;
     int i, j;
     int piecesArrayLength = 0;
 
     Color randomBaseColor = {0}, randomClickedColor = {0};
 
     piecesArrayLength = board.matrixOrder * board.matrixOrder;
-    piecesArray = (Piece *) malloc(piecesArrayLength * sizeof(Piece));
+    piecesArray = (Piece *)malloc(piecesArrayLength * sizeof(Piece));
 
     if (piecesArray == NULL)
-        exit(1);
+        return NULL;
 
     for (i = 0; i < board.matrixOrder; i++)
     {
@@ -67,10 +68,27 @@ void CreatePiecesArray(Piece *piecesArray, Board board)
             CreatePiece(&piecesArray[i * board.matrixOrder + j], i, j, randomBaseColor, randomClickedColor, board);
         }
     }
+
+    return piecesArray;
 }
 
 void DestroyPiecesArray(Piece *piecesArray)
 {
     free(piecesArray);
     piecesArray = NULL;
+}
+
+void DrawBoard(Board *board, Piece *pieceArray)
+{
+    int i, j;
+    int isClicked = 0;
+
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            isClicked = *GetValueFromIntegerMatrix(&(board->matrix), i, j);
+            DrawPiece(pieceArray[i * board->matrixOrder + j], isClicked);
+        }
+    }
 }

@@ -16,3 +16,5 @@ int IsSquare(IntegerMatrix *);
 int SumIntegerMatrices(IntegerMatrix *, IntegerMatrix *, IntegerMatrix *);
 int MultiplyMatrixByConstant(IntegerMatrix *, IntegerMatrix*, int);
 int MultiplyIntegerMatrices(IntegerMatrix *, IntegerMatrix *, IntegerMatrix *);
+
+void PrintIntegerMatrix(IntegerMatrix *);
