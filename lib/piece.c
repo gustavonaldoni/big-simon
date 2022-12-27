@@ -83,9 +83,9 @@ void DrawBoard(Board *board, Piece *pieceArray)
     int i, j;
     int isClicked = 0;
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < board->matrixOrder; i++)
     {
-        for (j = 0; j < 3; j++)
+        for (j = 0; j < board->matrixOrder; j++)
         {
             isClicked = *GetValueFromIntegerMatrix(&(board->matrix), i, j);
             DrawPiece(pieceArray[i * board->matrixOrder + j], isClicked);

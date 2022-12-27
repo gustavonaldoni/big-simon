@@ -6,9 +6,12 @@
 #include "utils.h"
 #include "board.h"
 #include "piece.h"
+#include "list.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 800
+
+#define MAX_FPS 60
 
 Board board = {0};
 Piece *piecesArray = NULL;
@@ -23,6 +26,7 @@ int main(void)
     CreateBoard(&board, 3, 500);
     piecesArray = CreatePiecesArray(board);
 
+    SetTargetFPS(MAX_FPS);
     while (!WindowShouldClose())
     {
         if (UserClickedInsideBoard(&board))
@@ -35,6 +39,7 @@ int main(void)
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
+        DrawFPS(20, 20);
 
         DrawCenteredText("Big Simon", GetScreenHeight() / 13, 60.0f, DARKGRAY);
 

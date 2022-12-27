@@ -1,4 +1,4 @@
-EXECUTABLE_NAME = foxGame.out
+EXECUTABLE_NAME = bigSimon.out
 SOURCE_FILE = src/main.c
 LIB_FILES = $(wildcard lib/*.c)
 
