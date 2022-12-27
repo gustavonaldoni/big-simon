@@ -1,6 +1,6 @@
 struct Node
 {
-    int data;
+    int i, j;
     struct Node *next;
 };
 
@@ -8,15 +8,15 @@ typedef struct
 {
     struct Node *init;
     struct Node *end;
-} ListLSE;
+} List;
 
-void ListLSECreate(ListLSE *);
-bool ListLSEIsEmpty(ListLSE);
+void ListCreate(List *);
+bool ListIsEmpty(List);
 
-bool ListLSEInsertEnd(ListLSE *, int);
+bool ListInsertEnd(List *, int, int);
 
-int ListLSEInit(ListLSE);
-int ListLSEEnd(ListLSE);
+bool ListInit(List, int *, int *);
+bool ListEnd(List, int *, int *);
 
-int ListLSECountElements(ListLSE);
-int ListLSERemove(ListLSE *list, int);
+int ListCountElements(List);
+bool ListRemove(List *list, int, int);

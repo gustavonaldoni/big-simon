@@ -18,6 +18,12 @@ Piece *piecesArray = NULL;
 
 int iClicked = 0, jClicked = 0;
 
+List botList = {0};
+List playerList = {0};
+
+int turn = 0;
+int round = 0;
+
 int main(void)
 {
     srand(time(NULL));
@@ -25,6 +31,9 @@ int main(void)
 
     CreateBoard(&board, 3, 500);
     piecesArray = CreatePiecesArray(board);
+
+    ListCreate(&botList);
+    ListCreate(&playerList);
 
     SetTargetFPS(MAX_FPS);
     while (!WindowShouldClose())

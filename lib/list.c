@@ -2,18 +2,18 @@
 #include <stdbool.h>
 #include "list.h"
 
-void ListLSECreate(ListLSE *list)
+void ListCreate(List *list)
 {
     list->init = NULL;
     list->end = NULL;
 }
 
-bool ListLSEIsEmpty(ListLSE list)
+bool ListIsEmpty(List list)
 {
     return list.init == NULL && list.end == NULL;
 }
 
-bool ListLSEInsertEnd(ListLSE *list, int data)
+bool ListInsertEnd(List *list, int i, int j)
 {
     struct Node *aux;
 
@@ -22,9 +22,10 @@ bool ListLSEInsertEnd(ListLSE *list, int data)
     if (aux == NULL)
         return false;
 
-    aux->data = data;
+    aux->i = i;
+    aux->j = j;
 
-    if (ListLSEIsEmpty(*list))
+    if (ListIsEmpty(*list))
     {
         list->init = aux;
         list->end = aux;
@@ -41,28 +42,32 @@ bool ListLSEInsertEnd(ListLSE *list, int data)
     return true;
 }
 
-int ListLSEInit(ListLSE list)
+bool ListInit(List list, int *i, int *j)
 {
-    if (ListLSEIsEmpty(list))
-        return -1;
+    if (ListIsEmpty(list))
+        return false;
 
-    return list.init->data;
+    *i = list.init->i;
+    *j = list.init->j;
+    return true;
 }
 
-int ListLSEEnd(ListLSE list)
+bool ListEnd(List list, int *i, int *j)
 {
-    if (ListLSEIsEmpty(list))
-        return -1;
+    if (ListIsEmpty(list))
+        return 0;
 
-    return list.end->data;
+    *i = list.end->i;
+    *j = list.end->j;
+    return true;
 }
 
-int ListLSECountElements(ListLSE list)
+int ListCountElements(List list)
 {
     int counter = 0;
     struct Node *aux;
 
-    if (ListLSEIsEmpty(list))
+    if (ListIsEmpty(list))
         return 0;
 
     aux = list.init;
@@ -76,48 +81,46 @@ int ListLSECountElements(ListLSE list)
     return counter;
 }
 
-int ListLSERemove(ListLSE *list, int data)
+bool ListRemove(List *list, int i, int j)
 {
     struct Node *aux, *before, *current;
-    int temp;
 
-    if (ListLSEIsEmpty(*list))
+    if (ListIsEmpty(*list))
         return -1;
 
     // Remove first element of a unitary list
-    if (list->init == list->end && list->init != NULL && list->init->data == data)
+    if (list->init == list->end && list->init != NULL && list->init->i == i && list->init->j == j)
     {
         aux = list->init;
-        temp = aux->data;
 
-        aux->data = 0;
+        aux->i = 0;
+        aux->j = 0;
 
         list->init = NULL;
         list->end = NULL;
 
         free(aux);
 
-        return temp;
+        return true;
     }
 
     // Remove first element of a non unitary list
-    if (list->init != list->end && list->init->data == data)
+    if (list->init != list->end && list->init->i == i && list->init->j == j)
     {
         aux = list->init;
-        temp = aux->data;
 
         list->init = list->init->next;
 
         free(aux);
 
-        return temp;
+        return true;
     }
 
     // Remove from any other position at of the list
     before = list->init;
     current = before->next;
 
-    while (current->data != data && current->next != NULL)
+    while (current->i != i && current->j != j && current->next != NULL)
     {
         before = current;
         current = current->next;
@@ -125,32 +128,30 @@ int ListLSERemove(ListLSE *list, int data)
 
     if (current == NULL)
     {
-        return -1;
+        return false;
     }
 
     // Got to the last element at the list
     else if (current->next == NULL)
     {
         aux = current;
-        temp = aux->data;
 
         before->next = NULL;
         list->end = before;
 
         free(aux);
 
-        return temp;
+        return true;
     }
 
     else
     {
         aux = current;
-        temp = aux->data;
 
         before->next = current->next;
 
         free(aux);
 
-        return temp;
+        return true;
     }
 }
