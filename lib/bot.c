@@ -18,7 +18,7 @@ void CreateBot(Bot *bot)
 
 int CalculateNumberOfBotPlays(int round)
 {
-    return round + 10;
+    return round + 2;
 }
 
 void GenerateRandomBotPlays(Bot *bot, int round, Board *board)
@@ -57,6 +57,10 @@ void DrawBotPlaysList(Bot *bot, int *turn, int *position, Board *board)
     if (StopwatchIsDone(bot->cooldownStopwatch))
     {
         *position += 1;
+
+        if (*position >= ListCountElements(bot->playsList))
+            *turn = 1;
+
         StopwatchReset(&(bot->cooldownStopwatch));
     }
 }

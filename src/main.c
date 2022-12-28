@@ -9,6 +9,7 @@
 #include "piece.h"
 #include "list.h"
 #include "bot.h"
+#include "player.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 800
@@ -28,7 +29,7 @@ int main(void)
     Board board = {0};
     Piece *piecesArray = NULL;
 
-    CreateBoard(&board, 3, 500);
+    CreateBoard(&board, 2, 500);
     piecesArray = CreatePiecesArray(board);
 
     Bot bot;
@@ -43,7 +44,7 @@ int main(void)
 
         if (IsBotTurn(turn) && StopwatchIsDone(initialBotPlayCooldown))
         {
-            if(ListIsEmpty(bot.playsList))
+            if (ListIsEmpty(bot.playsList))
                 GenerateRandomBotPlays(&bot, roundNumber, &board);
 
             ListShow(bot.playsList);
@@ -52,16 +53,15 @@ int main(void)
                 DrawBotPlaysList(&bot, &turn, &position, &board);
         }
 
-        else
+        else if (!IsBotTurn(turn) && StopwatchIsDone(initialBotPlayCooldown))
         {
-        }
+            if (UserClickedInsideBoard(&board))
+            {
+                iClicked = (GetMouseY() - board.y) / (board.size / board.matrixOrder);
+                jClicked = (GetMouseX() - board.x) / (board.size / board.matrixOrder);
 
-        if (UserClickedInsideBoard(&board))
-        {
-            iClicked = (GetMouseY() - board.y) / (board.size / board.matrixOrder);
-            jClicked = (GetMouseX() - board.x) / (board.size / board.matrixOrder);
-
-            SetValueOnIntegerMatrix(&(board.matrix), jClicked, iClicked, !(*GetValueFromIntegerMatrix(&(board.matrix), jClicked, iClicked)));
+                SetValueOnIntegerMatrix(&(board.matrix), jClicked, iClicked, !(*GetValueFromIntegerMatrix(&(board.matrix), jClicked, iClicked)));
+            }
         }
 
         BeginDrawing();
