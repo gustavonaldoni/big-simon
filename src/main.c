@@ -57,16 +57,14 @@ int main(void)
         {
             if (UserClickedInsideBoard(&board))
             {
-                iClicked = (GetMouseY() - board.y) / (board.size / board.matrixOrder);
-                jClicked = (GetMouseX() - board.x) / (board.size / board.matrixOrder);
-
+                GetClickedMatrixCoordinates(&board, &iClicked, &jClicked);
+                printf("iClicked = %d, jClicked = %d\n", iClicked, jClicked);
                 SetValueOnIntegerMatrix(&(board.matrix), jClicked, iClicked, !(*GetValueFromIntegerMatrix(&(board.matrix), jClicked, iClicked)));
             }
         }
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawFPS(20, 20);
 
         DrawCenteredText("Big Simon", GetScreenHeight() / 13, 60.0f, DARKGRAY);
 

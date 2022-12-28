@@ -31,3 +31,20 @@ int AddPlayerPlayToList(Player *player, int i, int j, Board *board, int roundNum
     player->numberOfPlays += 1;
     return 1;
 }
+
+int GetClickedMatrixCoordinates(Board *board, int *iClicked, int *jClicked)
+{
+    if (!UserClickedInsideBoard(board))
+        return 0;
+
+    *iClicked = (GetMouseY() - board->y) / (board->size / board->matrixOrder);
+    *jClicked = (GetMouseX() - board->x) / (board->size / board->matrixOrder);
+
+    if (*iClicked >= board->matrixOrder)
+        *iClicked = board->matrixOrder - 1;
+
+    if (*jClicked >= board->matrixOrder)
+        *jClicked = board->matrixOrder - 1;
+
+    return 1;
+}
