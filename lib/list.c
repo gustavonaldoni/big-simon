@@ -100,6 +100,32 @@ int ListCountElements(List list)
     return counter;
 }
 
+int ListGetElement(List list, int position, int *i, int *j)
+{
+    struct Node *aux;
+    int counter = 0;
+    int numberOfElements = ListCountElements(list);
+
+    if (ListIsEmpty(list))
+        return 0;
+
+    if (position < 0 || position >= numberOfElements)
+        return 0;
+
+    aux = list.init;
+
+    while (counter < position)
+    {
+        aux = aux->next;
+        counter++;
+    }
+
+    *i = aux->i;
+    *j = aux->j;
+
+    return 1;
+}
+
 bool ListRemove(List *list, int i, int j)
 {
     struct Node *aux, *before, *current;

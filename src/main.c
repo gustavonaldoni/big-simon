@@ -19,6 +19,8 @@ int iClicked = 0, jClicked = 0;
 int turn = 0;
 int roundNumber = 1;
 
+int iTest, jTest;
+
 int main(void)
 {
     srand(time(NULL));
@@ -42,6 +44,7 @@ int main(void)
                 GenerateRandomBotPlays(&bot, roundNumber, &board);
 
             ListShow(bot.playsList);
+
             DrawBotPlaysList(&bot, &turn);
         }
 

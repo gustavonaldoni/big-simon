@@ -21,5 +21,6 @@ bool ListInit(List, int *, int *);
 bool ListEnd(List, int *, int *);
 
 int ListCountElements(List);
+int ListGetElement(List, int, int *, int *);
 bool ListRemove(List *, int, int);
 int ListRemoveAll(List *);
