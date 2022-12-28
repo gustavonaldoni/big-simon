@@ -17,7 +17,7 @@
 
 int iClicked = 0, jClicked = 0;
 int turn = 0;
-int roundNumber = 0;
+int roundNumber = 1;
 
 int main(void)
 {
@@ -36,9 +36,12 @@ int main(void)
     SetTargetFPS(MAX_FPS);
     while (!WindowShouldClose())
     {
-        if (IsBotTurn(turn) && ListIsEmpty(bot.playsList))
+        if (IsBotTurn(turn))
         {
-            GenerateRandomBotPlays(&bot, roundNumber, &board);
+            if(ListIsEmpty(bot.playsList))
+                GenerateRandomBotPlays(&bot, roundNumber, &board);
+
+            ListShow(bot.playsList);
             DrawBotPlaysList(&bot, &turn);
         }
 
@@ -67,6 +70,7 @@ int main(void)
 
     DestroyBoard(&board);
     DestroyPiecesArray(piecesArray);
+    DestroyBot(&bot);
 
     CloseWindow();
 

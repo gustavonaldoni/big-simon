@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "raylib.h"
 #include "random.h"
 #include "stopwatch.h"
@@ -10,6 +11,7 @@ void CreateBot(Bot *bot)
     List playsList = {0};
     ListCreate(&playsList);
 
+    bot->playsList = playsList;
     bot->cooldownStopwatch = StopwatchCreate(COOLDOWN);
     bot->score = 0;
 }
@@ -33,7 +35,6 @@ void GenerateRandomBotPlays(Bot *bot, int round, Board *board)
 
         ListInsertEnd(&(bot->playsList), iRandom, jRandom);
     }
-
 }
 
 void ResetBotPlaysList(Bot *bot)
@@ -43,7 +44,10 @@ void ResetBotPlaysList(Bot *bot)
 
 void DrawBotPlaysList(Bot *bot, int *turn)
 {
+    StopwatchUpdate(&(bot->cooldownStopwatch));
 
+    if (StopwatchIsDone(bot->cooldownStopwatch))
+        StopwatchReset(&(bot->cooldownStopwatch));
 }
 
 int IsBotTurn(int turn)

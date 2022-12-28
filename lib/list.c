@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include "list.h"
 
@@ -40,6 +41,24 @@ bool ListInsertEnd(List *list, int i, int j)
     list->end = aux;
 
     return true;
+}
+
+void ListShow(List list)
+{
+    struct Node *aux;
+
+    if (ListIsEmpty(list))
+        return;
+
+    aux = list.init;
+
+    while (aux != NULL)
+    {
+        printf("(%d, %d)\n", aux->i, aux->j);
+        aux = aux->next;
+    }
+
+    printf("===========\n");
 }
 
 bool ListInit(List list, int *i, int *j)

@@ -15,6 +15,8 @@ bool ListIsEmpty(List);
 
 bool ListInsertEnd(List *, int, int);
 
+void ListShow(List);
+
 bool ListInit(List, int *, int *);
 bool ListEnd(List, int *, int *);
 
