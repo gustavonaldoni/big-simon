@@ -18,8 +18,7 @@
 int iClicked = 0, jClicked = 0;
 int turn = 0;
 int roundNumber = 1;
-
-int iTest, jTest;
+int position = 0;
 
 int main(void)
 {
@@ -35,17 +34,22 @@ int main(void)
     Bot bot;
     CreateBot(&bot);
 
+    Stopwatch initialBotPlayCooldown = StopwatchCreate(3.0f);
+
     SetTargetFPS(MAX_FPS);
     while (!WindowShouldClose())
     {
-        if (IsBotTurn(turn))
+        StopwatchUpdate(&initialBotPlayCooldown);
+
+        if (IsBotTurn(turn) && StopwatchIsDone(initialBotPlayCooldown))
         {
             if(ListIsEmpty(bot.playsList))
                 GenerateRandomBotPlays(&bot, roundNumber, &board);
 
             ListShow(bot.playsList);
 
-            DrawBotPlaysList(&bot, &turn);
+            if (position < ListCountElements(bot.playsList))
+                DrawBotPlaysList(&bot, &turn, &position, &board);
         }
 
         else

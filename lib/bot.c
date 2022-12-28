@@ -18,7 +18,7 @@ void CreateBot(Bot *bot)
 
 int CalculateNumberOfBotPlays(int round)
 {
-    return round + 2;
+    return round + 10;
 }
 
 void GenerateRandomBotPlays(Bot *bot, int round, Board *board)
@@ -42,12 +42,23 @@ void ResetBotPlaysList(Bot *bot)
     ListRemoveAll(&(bot->playsList));
 }
 
-void DrawBotPlaysList(Bot *bot, int *turn)
+void DrawBotPlaysList(Bot *bot, int *turn, int *position, Board *board)
 {
+    int iCurrent = 0, jCurrent = 0;
+
     StopwatchUpdate(&(bot->cooldownStopwatch));
+    ListGetElement(bot->playsList, *position, &iCurrent, &jCurrent);
+
+    if (bot->cooldownStopwatch.currentSeconds <= bot->cooldownStopwatch.endSeconds / 2.0f)
+        SetValueOnIntegerMatrix(&(board->matrix), jCurrent, iCurrent, 1);
+    else
+        SetValueOnIntegerMatrix(&(board->matrix), jCurrent, iCurrent, 0);
 
     if (StopwatchIsDone(bot->cooldownStopwatch))
+    {
+        *position += 1;
         StopwatchReset(&(bot->cooldownStopwatch));
+    }
 }
 
 int IsBotTurn(int turn)

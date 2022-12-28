@@ -1,4 +1,4 @@
-#define COOLDOWN 1.0f
+#define COOLDOWN 2.0f
 
 typedef struct
 {
@@ -11,5 +11,5 @@ void CreateBot(Bot *);
 int CalculateNumberOfBotPlays(int);
 void GenerateRandomBotPlays(Bot *, int, Board *);
 void ResetBotPlaysList(Bot *);
-void DrawBotPlaysList(Bot *, int *);
+void DrawBotPlaysList(Bot *, int *, int *, Board *);
 int IsBotTurn(int);
