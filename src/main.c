@@ -70,7 +70,6 @@ int main(void)
 
     DestroyBoard(&board);
     DestroyPiecesArray(piecesArray);
-    DestroyBot(&bot);
 
     CloseWindow();
 
