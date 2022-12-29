@@ -13,7 +13,6 @@ void CreateBot(Bot *bot)
 
     bot->playsList = playsList;
     bot->cooldownStopwatch = StopwatchCreate(COOLDOWN);
-    bot->score = 0;
 }
 
 int CalculateNumberOfBotPlays(int round)

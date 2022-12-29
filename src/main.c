@@ -35,6 +35,9 @@ int main(void)
     Bot bot;
     CreateBot(&bot);
 
+    Player player;
+    CreatePlayer(&player);
+
     Stopwatch initialBotPlayCooldown = StopwatchCreate(3.0f);
 
     SetTargetFPS(MAX_FPS);
@@ -58,7 +61,9 @@ int main(void)
             if (UserClickedInsideBoard(&board))
             {
                 GetClickedMatrixCoordinates(&board, &iClicked, &jClicked);
-                printf("iClicked = %d, jClicked = %d\n", iClicked, jClicked);
+                AddPlayerPlayToList(&player, iClicked, jClicked, &board, roundNumber);
+                ListShow(player.playsList);
+
                 SetValueOnIntegerMatrix(&(board.matrix), jClicked, iClicked, !(*GetValueFromIntegerMatrix(&(board.matrix), jClicked, iClicked)));
             }
         }

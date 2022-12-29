@@ -4,7 +4,6 @@ typedef struct
 {
     List playsList;
     Stopwatch cooldownStopwatch;
-    int score;
 } Bot;
 
 void CreateBot(Bot *);

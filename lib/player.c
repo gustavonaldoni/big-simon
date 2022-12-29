@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "raylib.h"
 #include "list.h"
 #include "board.h"
@@ -19,7 +20,7 @@ int PlayIsValid(Player *player, int i, int j, Board *board, int roundNumber)
 {
     return (i >= 0 && i < board->matrixOrder) &&
            (j >= 0 && j < board->matrixOrder) &&
-           (player->numberOfPlays <= CalculateNumberOfBotPlays(roundNumber));
+           (player->numberOfPlays < CalculateNumberOfBotPlays(roundNumber));
 }
 
 int AddPlayerPlayToList(Player *player, int i, int j, Board *board, int roundNumber)
@@ -45,6 +46,46 @@ int GetClickedMatrixCoordinates(Board *board, int *iClicked, int *jClicked)
 
     if (*jClicked >= board->matrixOrder)
         *jClicked = board->matrixOrder - 1;
+
+    return 1;
+}
+
+void ResetPlayerScore(Player *player)
+{
+    player->score = 0;
+}
+
+void ResetPlayerNumberOfPlays(Player *player)
+{
+    player->numberOfPlays = 0;
+}
+
+void ResetPlayerPlaysList(Player *player)
+{
+    ListRemoveAll(&(player->playsList));
+}
+
+int PlayerWonRound(Player *player, Bot *bot)
+{
+    struct Node *auxPlayer = NULL, *auxBot = NULL;
+
+    if (player->numberOfPlays != ListCountElements(bot->playsList))
+        return 0;
+
+    if (ListIsEmpty(player->playsList) || ListIsEmpty(bot->playsList))
+        return 0;
+
+    auxPlayer = player->playsList.init;
+    auxBot = bot->playsList.init;
+
+    while (auxPlayer != NULL && auxBot != NULL)
+    {
+        if (auxPlayer->i != auxBot->i || auxPlayer->j != auxBot->j)
+            return 0;
+
+        auxPlayer = auxPlayer->next;
+        auxBot = auxBot->next;
+    }
 
     return 1;
 }
