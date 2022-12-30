@@ -203,18 +203,11 @@ bool ListRemove(List *list, int i, int j)
 
 int ListRemoveAll(List *list)
 {
-    struct Node *aux;
-
     if (ListIsEmpty(*list))
         return 0;
 
-    aux = list->init;
-
-    while (aux != NULL)
-    {
-        ListRemove(list, aux->i, aux->j);
-        aux = aux->next;
-    }
+    while (!ListIsEmpty(*list))
+        ListRemove(list, list->init->i, list->init->j);
 
     return 1;
 }

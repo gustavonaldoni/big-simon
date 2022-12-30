@@ -11,3 +11,4 @@ typedef struct
 void CreateBoard(Board *, int, int);
 void DestroyBoard(Board *);
 int UserClickedInsideBoard(Board *);
+void ResetBoard(Board *);

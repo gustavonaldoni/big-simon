@@ -89,3 +89,18 @@ int PlayerWonRound(Player *player, Bot *bot)
 
     return 1;
 }
+
+int IsPlayerTurn(int turn)
+{
+    return turn == 1;
+}
+
+void SetTurnToPlayers(int *turn)
+{
+    *turn = 1;
+}
+
+void UpdatePlayerScore(Player *player, int scoreToAdd)
+{
+    player->score += scoreToAdd;
+}

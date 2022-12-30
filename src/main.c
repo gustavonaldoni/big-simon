@@ -56,7 +56,7 @@ int main(void)
                 DrawBotPlaysList(&bot, &turn, &position, &board);
         }
 
-        else if (!IsBotTurn(turn) && StopwatchIsDone(initialBotPlayCooldown))
+        else if (IsPlayerTurn(turn) && StopwatchIsDone(initialBotPlayCooldown))
         {
             if (UserClickedInsideBoard(&board))
             {
@@ -65,6 +65,22 @@ int main(void)
                 ListShow(player.playsList);
 
                 SetValueOnIntegerMatrix(&(board.matrix), jClicked, iClicked, !(*GetValueFromIntegerMatrix(&(board.matrix), jClicked, iClicked)));
+            }
+
+            if (PlayerWonRound(&player, &bot))
+            {
+                ResetPlayerPlaysList(&player);
+                ResetPlayerNumberOfPlays(&player);
+                UpdatePlayerScore(&player, 1);
+
+                ResetBotPlaysList(&bot);
+                ResetBotStopwatch(&bot);
+
+                SetTurnToBots(&turn);
+                ResetBoard(&board);
+
+                roundNumber++;
+                position = 0;
             }
         }
 

@@ -26,3 +26,8 @@ int UserClickedInsideBoard(Board *board)
     return IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
            CheckCollisionPointRec(GetMousePosition(), (Rectangle){board->x, board->y, board->size, board->size});
 }
+
+void ResetBoard(Board *board)
+{
+    ZeroIntegerMatrix(&(board->matrix));
+}

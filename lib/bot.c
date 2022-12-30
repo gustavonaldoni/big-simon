@@ -68,3 +68,13 @@ int IsBotTurn(int turn)
 {
     return turn == 0;
 }
+
+void SetTurnToBots(int *turn)
+{
+    *turn = 0;
+}
+
+void ResetBotStopwatch(Bot *bot)
+{
+    StopwatchReset(&(bot->cooldownStopwatch));
+}

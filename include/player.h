@@ -13,3 +13,6 @@ void ResetPlayerScore(Player *);
 void ResetPlayerNumberOfPlays(Player *);
 void ResetPlayerPlaysList(Player *);
 int PlayerWonRound(Player *, Bot *);
+int IsPlayerTurn(int);
+void SetTurnToPlayers(int *);
+void UpdatePlayerScore(Player *, int);

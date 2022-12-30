@@ -12,3 +12,5 @@ void GenerateRandomBotPlays(Bot *, int, Board *);
 void ResetBotPlaysList(Bot *);
 void DrawBotPlaysList(Bot *, int *, int *, Board *);
 int IsBotTurn(int);
+void SetTurnToBots(int *);
+void ResetBotStopwatch(Bot *);
